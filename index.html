@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faisal Hasan — Flutter Developer</title>
+<meta name="description" content="Senior Flutter Developer building high-performance Android & iOS apps. Expert in Firebase, REST APIs, biometric auth, and AI-integrated mobile experiences.">
+<meta property="og:title" content="Faisal Hasan — Flutter Developer">
+<meta property="og:description" content="Building high-performance Android & iOS apps with Flutter. Based in Dhaka, Bangladesh.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050D1A;
+  --bg2: #081020;
+  --bg3: #0C1428;
+  --surface: #101C30;
+  --surface2: #162338;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #E8F0FC;
+  --text2: #6A85A8;
+  --text3: #3A5070;
+  --accent: #60A5FA;
+  --accent2: #3B82F6;
+  --accent-dim: rgba(96,165,250,0.1);
+  --accent-dim2: rgba(96,165,250,0.05);
+  --blue: #34D399;
+  --blue-dim: rgba(52,211,153,0.1);
+  --coral: #F87171;
+  --amber: #FBBF24;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 2px; }
+
+/* ── SELECTION ── */
+::selection { background: rgba(62,240,194,0.2); color: var(--accent); }
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8,12,16,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+nav.scrolled { background: rgba(8,12,16,0.95); }
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text2);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  border: 1px solid rgba(62,240,194,0.3);
+  padding: 6px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+.nav-cta:hover { background: var(--accent-dim); border-color: var(--accent); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.hamburger span { width: 22px; height: 1.5px; background: var(--text); display: block; transition: all 0.3s; }
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 64px; left: 0; right: 0;
+  background: rgba(8,12,16,0.98);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  z-index: 99;
+  border-bottom: 1px solid var(--border);
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.mobile-menu.open { transform: translateY(0); opacity: 1; }
+.mobile-menu a { display: block; padding: 0.75rem 0; color: var(--text2); text-decoration: none; font-family: 'DM Mono', monospace; font-size: 0.85rem; border-bottom: 1px solid var(--border); letter-spacing: 0.05em; transition: color 0.2s; }
+.mobile-menu a:hover { color: var(--accent); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 100px 2rem 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(62,240,194,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62,240,194,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+.hero-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(62,240,194,0.06) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+.hero-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.6s 0.2s ease forwards;
+}
+.hero-tag::before { content: ''; width: 24px; height: 1px; background: var(--accent); display: block; }
+.hero-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.35s ease forwards;
+}
+.hero-name .accent { color: var(--accent); }
+.hero-role {
+  font-family: 'DM Mono', monospace;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  color: var(--text2);
+  margin-bottom: 1.5rem;
+  min-height: 2em;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.5s ease forwards;
+}
+.cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--accent); vertical-align: middle; margin-left: 2px; animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.hero-desc {
+  font-size: 1.05rem;
+  color: var(--text2);
+  max-width: 520px;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.65s ease forwards;
+}
+.hero-btns {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.8s ease forwards;
+}
+.btn-primary {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+.btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+.btn-ghost {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--text2);
+  background: transparent;
+  border: 1px solid var(--border2);
+  padding: 12px 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { color: var(--text); border-color: var(--text2); transform: translateY(-2px); }
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  opacity: 0;
+  animation: fadeUp 0.7s 1s ease forwards;
+}
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--text);
+  line-height: 1;
+}
+.stat-num span { color: var(--accent); }
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeIn 1s 1.5s ease forwards;
+}
+.scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, transparent, var(--accent)); animation: scrollDown 2s ease infinite; }
+@keyframes scrollDown { 0%,100%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} }
+.scroll-text { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--text3); letter-spacing: 0.15em; writing-mode: vertical-rl; }
+
+/* ── SECTION COMMON ── */
+section { padding: 100px 2rem; }
+.container { max-width: 1100px; margin: 0 auto; }
+.section-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.section-tag::before { content: ''; width: 20px; height: 1px; background: var(--accent); }
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 3rem;
+}
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── ABOUT ── */
+#about { background: var(--bg2); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.about-avatar {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: var(--accent-dim);
+  border: 2px solid rgba(62,240,194,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  position: relative;
+}
+.about-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px dashed rgba(62,240,194,0.2);
+  animation: spin 20s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.about-bio { font-size: 1.05rem; color: var(--text2); line-height: 1.9; margin-bottom: 1.5rem; }
+.about-bio strong { color: var(--text); font-weight: 500; }
+.about-facts { display: flex; flex-direction: column; gap: 1.5rem; }
+.fact {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--surface);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.fact:hover { border-color: var(--border2); }
+.fact-icon {
+  width: 36px; height: 36px;
+  background: var(--accent-dim);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+.fact-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text3); letter-spacing: 0.08em; margin-bottom: 2px; }
+.fact-value { font-size: 0.95rem; color: var(--text); font-weight: 400; }
+
+/* ── SKILLS ── */
+#skills { background: var(--bg); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+.skill-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.skill-group::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.skill-group:hover { border-color: var(--border2); transform: translateY(-4px); }
+.skill-group:hover::before { opacity: 1; }
+.skill-group-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  padding: 4px 12px;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+}
+.tag-accent { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(62,240,194,0.15); }
+.tag-blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(77,158,255,0.15); }
+.tag-default { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+
+/* ── EXPERIENCE ── */
+#experience { background: var(--bg2); }
+.timeline { position: relative; padding-left: 2rem; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), transparent); }
+.timeline-item { position: relative; padding-bottom: 3.5rem; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-dot {
+  position: absolute;
+  left: -2rem;
+  top: 6px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg2);
+  box-shadow: 0 0 0 3px rgba(62,240,194,0.15);
+}
+.timeline-dot.active { animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 3px rgba(62,240,194,0.15)} 50%{box-shadow:0 0 0 6px rgba(62,240,194,0.08)} }
+.timeline-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+.timeline-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+}
+.timeline-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+.timeline-company {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-bottom: 0.15rem;
+  letter-spacing: -0.01em;
+}
+.timeline-role { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--accent2); margin-bottom: 1rem; }
+.timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.timeline-bullets li {
+  font-size: 0.9rem;
+  color: var(--text2);
+  padding-left: 1rem;
+  position: relative;
+  line-height: 1.7;
+}
+.timeline-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 4px; }
+.timeline-projects { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+.proj-chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  padding: 3px 10px;
+  border-radius: 3px;
+  background: var(--surface2);
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+
+/* ── PROJECTS ── */
+#projects { background: var(--bg); }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(62,240,194,0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.project-card:hover { border-color: rgba(62,240,194,0.2); transform: translateY(-4px); }
+.project-card:hover::after { opacity: 1; }
+.project-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.project-icon {
+  width: 42px; height: 42px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.icon-teal { background: rgba(62,240,194,0.1); }
+.icon-blue { background: rgba(77,158,255,0.1); }
+.icon-coral { background: rgba(255,107,107,0.1); }
+.icon-amber { background: rgba(255,184,77,0.1); }
+.project-type {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}
+.project-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.project-desc { font-size: 0.875rem; color: var(--text2); line-height: 1.75; flex: 1; }
+.project-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+
+/* ── CONTACT ── */
+#contact { background: var(--bg2); }
+.contact-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+.contact-inner .section-tag { justify-content: center; }
+.contact-inner .section-title { text-align: center; }
+.contact-sub { color: var(--text2); font-size: 1rem; margin-bottom: 3rem; line-height: 1.8; }
+.contact-links { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 3rem; }
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: all 0.2s;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+.contact-link:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.contact-link .cl-icon { font-size: 1rem; }
+.contact-form { text-align: left; display: flex; flex-direction: column; gap: 1rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text3); letter-spacing: 0.1em; }
+.form-group input,
+.form-group textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+  width: 100%;
+  outline: none;
+}
+.form-group input:focus,
+.form-group textarea:focus { border-color: rgba(62,240,194,0.4); }
+.form-group textarea { height: 120px; resize: vertical; }
+input::placeholder, textarea::placeholder { color: var(--text3); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+}
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; color: var(--text2); letter-spacing: -0.02em; }
+.footer-logo span { color: var(--accent); }
+.footer-copy { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text3); letter-spacing: 0.06em; }
+.footer-tagline { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text3); letter-spacing: 0.06em; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .mobile-menu { display: block; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  section { padding: 70px 1.5rem; }
+  nav { padding: 0 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Faisal<span>.</span>
+</a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <a href="mailto:faisalhasan.dev@gmail.com" class="nav-cta">hire me →</a>
+  <button class="hamburger" id="ham" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about" onclick="closeMobile()">about</a>
+  <a href="#skills" onclick="closeMobile()">skills</a>
+  <a href="#experience" onclick="closeMobile()">experience</a>
+  <a href="#projects" onclick="closeMobile()">projects</a>
+  <a href="#contact" onclick="closeMobile()">contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">AVAILABLE FOR PROJECTS</div>
+    <h1 class="hero-name">Faisal<br><span class="accent">Hasan</span></h1>
+    <p class="hero-role"><span id="typed"></span><span class="cursor"></span></p>
+    <p class="hero-desc">From Google Maps and ML Kit to Deep Links and Push Notifications — I build complete Flutter apps and take them all the way to the Play Store and App Store.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View My Work</a>
+<a href="Faisal_Hasan_CV.pdf" class="btn-ghost" target="_blank">Download CV ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">2<span>+</span></div>
+        <div class="stat-label">YRS EXPERIENCE</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">COMPANIES</div>
+      </div>
+      <div>
+        <div class="stat-num">4<span>+</span></div>
+        <div class="stat-label">APPS SHIPPED</div>
+      </div>
+      <div>
+        <div class="stat-num">2</div>
+        <div class="stat-label">OSS PACKAGES</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-text">SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="section-tag">ABOUT ME</div>
+        <div class="about-avatar">
+          <img src="profile.jpg" alt="Faisal Hasan" style="width: 100%; height: 100%; border-radius: 50%;">
+        </div>
+        <p class="about-bio">I'm a <strong>Flutter developer</strong> with hands-on experience shipping production applications across healthcare, fintech, SaaS, and commerce platforms. I care deeply about <strong>clean architecture</strong>, maintainable code, and seamless user experiences.</p>
+        <p class="about-bio">Currently building scalable mobile products at <strong>Analyzen Bangladesh Limited</strong>, where I work on everything from ML Kit OCR pipelines to biometric authentication systems.</p>
+      </div>
+      <div class="reveal" style="transition-delay:0.15s">
+        <div class="section-tag">QUICK FACTS</div>
+        <div class="about-facts">
+          <div class="fact">
+            <div class="fact-icon">🎓</div>
+            <div>
+              <div class="fact-label">EDUCATION</div>
+              <div class="fact-value">BSc in Computer Science & Engineering<br>Daffodil International University, 2023</div>
+            </div>
+          </div>
+          <div class="fact">
+            <div class="fact-icon">📍</div>
+            <div>
+              <div class="fact-label">LOCATION</div>
+              <div class="fact-value">Farmgate, Dhaka, Bangladesh</div>
+            </div>
+          </div>
+          <div class="fact">
+            <div class="fact-icon">📱</div>
+            <div>
+              <div class="fact-label">PLATFORMS</div>
+              <div class="fact-value">Android (Play Store) & iOS (App Store)</div>
+            </div>
+          </div>
+          <div class="fact">
+            <div class="fact-icon">🏅</div>
+            <div>
+              <div class="fact-label">CERTIFICATION</div>
+              <div class="fact-value">Mobile App Development — BITM, July 2023</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">TECHNICAL SKILLS</div>
+      <h2 class="section-title">Tools of the trade</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group reveal" style="transition-delay:0.05s">
+        <div class="skill-group-label">LANGUAGES & FRAMEWORK</div>
+        <div class="skill-tags">
+          <span class="skill-tag tag-accent">Flutter</span>
+          <span class="skill-tag tag-accent">Dart</span>
+          <span class="skill-tag tag-default">Laravel</span>
+        </div>
+      </div>
+      <div class="skill-group reveal" style="transition-delay:0.1s">
+        <div class="skill-group-label">BACKEND & APIs</div>
+        <div class="skill-tags">
+          <span class="skill-tag tag-accent">Firebase</span>
+          <span class="skill-tag tag-default">REST APIs</span>
+          <span class="skill-tag tag-default">FCM</span>
+          <span class="skill-tag tag-default">Firestore</span>
+          <span class="skill-tag tag-default">Firebase Analytics</span>
+        </div>
+      </div>
+      <div class="skill-group reveal" style="transition-delay:0.15s">
+        <div class="skill-group-label">STATE MANAGEMENT</div>
+        <div class="skill-tags">
+          <span class="skill-tag tag-accent">GetX</span>
+          <span class="skill-tag tag-default">Bloc / Cubit</span>
+          <span class="skill-tag tag-default">Provider</span>
+          <span class="skill-tag tag-default">Riverpod</span>
+        </div>
+      </div>
+      <div class="skill-group reveal" style="transition-delay:0.2s">
+        <div class="skill-group-label">SDKs & INTEGRATIONS</div>
+        <div class="skill-tags">
+          <span class="skill-tag tag-accent">Agora SDK</span>
+          <span class="skill-tag tag-accent">Google Maps</span>
+          <span class="skill-tag tag-default">ML Kit</span>
+          <span class="skill-tag tag-default">Stripe</span>
+          <span class="skill-tag tag-default">Biometric</span>
+        </div>
+      </div>
+      <div class="skill-group reveal" style="transition-delay:0.25s">
+        <div class="skill-group-label">ARCHITECTURE</div>
+        <div class="skill-tags">
+          <span class="skill-tag tag-accent">Clean Architecture</span>
+          <span class="skill-tag tag-default">MVVM</span>
+          <span class="skill-tag tag-default">Plugin Dev</span>
+          <span class="skill-tag tag-default">Platform Channels</span>
+        </div>
+      </div>
+      <div class="skill-group reveal" style="transition-delay:0.3s">
+        <div class="skill-group-label">TOOLS & DEPLOYMENT</div>
+        <div class="skill-tags">
+          <span class="skill-tag tag-accent">GitHub</span>
+          <span class="skill-tag tag-default">GitLab</span>
+          <span class="skill-tag tag-default">ClickUp</span>
+          <span class="skill-tag tag-default">Play Console</span>
+          <span class="skill-tag tag-default">App Store Connect</span>
+        </div>
+      </div>
+      <div class="skill-group reveal" style="transition-delay:0.35s">
+    <div class="skill-group-label">AI-ASSISTED DEVELOPMENT</div>
+    <div class="skill-tags">
+    <span class="skill-tag tag-accent">Claude</span>
+    <span class="skill-tag tag-accent">Gemini</span>
+    <span class="skill-tag tag-accent">Codex</span>
+    <span class="skill-tag tag-default">AI Agent Workflows</span>
+    <span class="skill-tag tag-default">Prompt Engineering</span>
+    </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">WORK HISTORY</div>
+      <h2 class="section-title">Where I've worked</h2>
+    </div>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot active"></div>
+        <div class="timeline-meta">
+          <span class="timeline-date">DEC 2024 — PRESENT</span>
+          <span class="timeline-badge">CURRENT</span>
+        </div>
+        <div class="timeline-company">Analyzen Bangladesh Limited</div>
+        <div class="timeline-role">Software Engineer</div>
+        <ul class="timeline-bullets">
+          <li>Developed scalable Flutter apps for commerce, SaaS, and financial collection platforms.</li>
+          <li>Integrated Google Maps, Stripe payments, deep links, push notifications, and Firebase Analytics.</li>
+          <li>Implemented ML Kit OCR for automatic NID data extraction and onboarding workflows.</li>
+          <li>Built biometric fingerprint authentication for secure user registration and verification.</li>
+          <li>Managed full Android & iOS release cycle via Play Console and App Store Connect.</li>
+        </ul>
+        <div class="timeline-projects">
+          <span class="proj-chip">CREED</span>
+          <span class="proj-chip">CM App</span>
+          <span class="proj-chip">Microzen</span>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-date">JUL 2024 — NOV 2024</span>
+        </div>
+        <div class="timeline-company">Healthcare Information System Limited</div>
+        <div class="timeline-role">Flutter Developer</div>
+        <ul class="timeline-bullets">
+          <li>Built MDaktar — a smart patient management app with appointment scheduling and medical records.</li>
+          <li>Integrated Agora SDK for real-time video consultations between patients and physicians.</li>
+          <li>Implemented bKash payment gateway and Firebase Cloud Messaging for notifications.</li>
+          <li>Architected REST API-driven modules using GetX and SharedPreferences.</li>
+        </ul>
+        <div class="timeline-projects">
+          <span class="proj-chip">MDaktar</span>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-date">NOV 2023 — JUN 2024</span>
+        </div>
+        <div class="timeline-company">Envision Technology Limited</div>
+        <div class="timeline-role">Flutter Developer</div>
+        <ul class="timeline-bullets">
+          <li>Built telemedicine features for TeleDaktar platform using Flutter and REST APIs.</li>
+          <li>Integrated Agora SDK for real-time consultations and Firebase Cloud Messaging.</li>
+          <li>Improved app performance and managed Play Store deployment process.</li>
+        </ul>
+        <div class="timeline-projects">
+          <span class="proj-chip">TeleDaktar</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">PORTFOLIO</div>
+      <h2 class="section-title">Things I've built</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal" style="border-color: rgba(62,240,194,0.3); grid-column: 1 / -1;">
+  <div class="project-top">
+    <div class="project-icon icon-teal">🕌</div>
+    <span class="project-type">LATEST · PRODUCTION</span>
+  </div>
+  <div class="project-name">CREED — Muslim Commerce Platform</div>
+  <div class="project-desc">A global platform connecting Muslims to Muslim-friendly businesses around the world. Built with Flutter, integrating Google Maps, Firebase, Stripe payments, Deep Links, and Push Notifications for onboarding workflows.</div>
+  <div class="project-tags">
+    <span class="skill-tag tag-accent">Google Maps</span>
+    <span class="skill-tag tag-default">Stripe</span>
+    <span class="skill-tag tag-default">Firebase</span>
+    <span class="skill-tag tag-default">Deep Links</span>
+  </div>
+</div>
+
+      <div class="project-card reveal">
+        <div class="project-top">
+          <div class="project-icon icon-teal">🔐</div>
+          <span class="project-type">OPEN SOURCE</span>
+        </div>
+        <div class="project-name">Flutter Biometric Plugin</div>
+        <div class="project-desc">Native Android biometric fingerprint integration using platform channels. Handles fingerprint capture, device communication, and biometric verification workflows.</div>
+        <div class="project-tags">
+          <span class="skill-tag tag-accent">pub.dev</span>
+          <span class="skill-tag tag-default">Flutter</span>
+          <span class="skill-tag tag-default">Android</span>
+          <span class="skill-tag tag-default">Platform Channels</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:0.05s">
+        <div class="project-top">
+          <div class="project-icon icon-blue">📋</div>
+          <span class="project-type">OPEN SOURCE</span>
+        </div>
+        <div class="project-name">Custom Dropdown Pro</div>
+        <div class="project-desc">Fully customizable searchable dropdown for Flutter. Supports BottomSheet, Dialog, and Overlay modes with async search, validation, and programmatic controls.</div>
+        <div class="project-tags">
+          <span class="skill-tag tag-accent">pub.dev</span>
+          <span class="skill-tag tag-default">Flutter</span>
+          <span class="skill-tag tag-default">Package</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:0.1s">
+        <div class="project-top">
+          <div class="project-icon icon-coral">🏥</div>
+          <span class="project-type">PRODUCTION</span>
+        </div>
+        <div class="project-name">MDaktar</div>
+        <div class="project-desc">Smart patient management app with appointment scheduling, medical records, real-time video consultations via Agora SDK, and bKash payment integration.</div>
+        <div class="project-tags">
+          <span class="skill-tag tag-blue">Flutter</span>
+          <span class="skill-tag tag-default">Agora SDK</span>
+          <span class="skill-tag tag-default">bKash</span>
+          <span class="skill-tag tag-default">Firebase</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:0.15s">
+        <div class="project-top">
+          <div class="project-icon icon-teal">💊</div>
+          <span class="project-type">PRODUCTION</span>
+        </div>
+        <div class="project-name">TeleDaktar</div>
+        <div class="project-desc">Telemedicine platform enabling real-time video consultations between patients and doctors. Integrated Agora SDK and Firebase Cloud Messaging for seamless experience.</div>
+        <div class="project-tags">
+          <span class="skill-tag tag-blue">Flutter</span>
+          <span class="skill-tag tag-default">Agora</span>
+          <span class="skill-tag tag-default">Firebase</span>
+          <span class="skill-tag tag-default">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:0.2s">
+        <div class="project-top">
+          <div class="project-icon icon-amber">🛒</div>
+          <span class="project-type">PERSONAL PROJECT</span>
+        </div>
+        <div class="project-name">E-Commerce App</div>
+        <div class="project-desc">Full-featured Flutter e-commerce app with Firebase authentication, product catalog, cart system, and order management. Clean MVVM architecture throughout.</div>
+        <div class="project-tags">
+          <span class="skill-tag tag-blue">Flutter</span>
+          <span class="skill-tag tag-default">Firebase</span>
+          <span class="skill-tag tag-default">GetX</span>
+          <span class="skill-tag tag-default">MVVM</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal" style="transition-delay:0.25s">
+        <div class="project-top">
+          <div class="project-icon icon-blue">🎬</div>
+          <span class="project-type">PERSONAL PROJECT</span>
+        </div>
+        <div class="project-name">Cinepedia</div>
+        <div class="project-desc">Movie and TV show discovery app powered by the TMDB API. Browse trending, search titles, view detailed info, cast, and ratings in a smooth, animated UI.</div>
+        <div class="project-tags">
+          <span class="skill-tag tag-blue">Flutter</span>
+          <span class="skill-tag tag-default">TMDB API</span>
+          <span class="skill-tag tag-default">REST APIs</span>
+          <span class="skill-tag tag-default">Bloc</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="reveal">
+        <div class="section-tag">CONTACT</div>
+        <h2 class="section-title">Let's build something</h2>
+        <p class="contact-sub">Open to freelance projects, full-time opportunities, and interesting collaborations. Drop me a message and I'll get back to you promptly.</p>
+      </div>
+      <div class="contact-links reveal">
+        <a class="contact-link" href="mailto:faisalhasan.dev@gmail.com">
+          <span class="cl-icon">✉️</span> faisalhasan.dev@gmail.com
+        </a>
+        <a class="contact-link" href="tel:+8801644485591">
+          <span class="cl-icon">📞</span> 01644485591
+        </a>
+
+        <a class="contact-link" href="https://www.linkedin.com/in/faisal-hasan-0067aa205" target="_blank" rel="noopener">
+          <span class="cl-icon"></span> linkedin/faisal-hasan
+        </a>
+        <a class="contact-link" href="https://github.com/fhfaisal" target="_blank" rel="noopener">
+          <span class="cl-icon"></span> github.com/fhfaisal
+        </a>
+      </div>
+      <!-- <form class="contact-form reveal" action="mailto:faisalhasan.dev@gmail.com" method="GET" enctype="text/plain">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">NAME</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">EMAIL</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="message">MESSAGE</label>
+          <textarea id="message" name="body" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <a href="mailto:faisalhasan.dev@gmail.com?subject=Project Inquiry" class="btn-primary" style="align-self:flex-start">Send Message →</a>
+      </form> -->
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Faisal<span>.</span></div>
+    <div class="footer-tagline">Crafted with chai and clean code from Dhaka 🇧🇩</div>
+    <div class="footer-copy">© 2026 Faisal Hasan. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// ── TYPING ANIMATION ──
+const roles = ['Flutter Developer', 'Mobile App Engineer', 'Firebase Expert', 'Clean Code Advocate'];
+let ri = 0, ci = 0, deleting = false;
+const el = document.getElementById('typed');
+function type() {
+  const word = roles[ri];
+  el.textContent = deleting ? word.slice(0, ci--) : word.slice(0, ci++);
+  if (!deleting && ci > word.length) { deleting = true; setTimeout(type, 1800); return; }
+  if (deleting && ci < 0) { deleting = false; ri = (ri + 1) % roles.length; ci = 0; }
+  setTimeout(type, deleting ? 40 : 75);
+}
+type();
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── NAV SCROLL + ACTIVE ──
+const navbar = document.getElementById('navbar');
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
+
+// ── HAMBURGER ──
+const ham = document.getElementById('ham');
+const menu = document.getElementById('mobile-menu');
+let open = false;
+ham.addEventListener('click', () => {
+  open = !open;
+  menu.classList.toggle('open', open);
+  menu.style.display = open ? 'block' : 'none';
+});
+function closeMobile() { open = false; menu.classList.remove('open'); setTimeout(() => menu.style.display = 'none', 300); }
+menu.style.display = 'none';
+
+// ── CARD MOUSE GLOW ──
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+  });
+});
+</script>
+</body>
+</html>
